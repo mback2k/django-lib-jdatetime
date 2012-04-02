@@ -49,34 +49,49 @@ Date.prototype.setISO8601 = function(string) {
   
   return this;
 };
-jQuery.removeTimezone = function(string) {
-  return string.replace(/\s[A-Z]{3,4}(\+[0-9]{4})?/, '').replace(/\s\(.+\)/, '');
-}
 jQuery.fn.extend({
   formatDatetime: function() {
     jQuery(this).find('time.date[datetime]').each(function(i) {
-      jQuery(this).text(jQuery.removeTimezone(new Date().setISO8601(jQuery(this).attr('datetime')).toDateString()));
-      jQuery(this).removeClass('date');
+      var elem = jQuery(this);
+      var date = new Date();
+      date.setISO8601(elem.attr('datetime'));
+      elem.text(date.toDateString());
+      elem.removeClass('date');
     });
     jQuery(this).find('time.time[datetime]').each(function(i) {
-      jQuery(this).text(jQuery.removeTimezone(new Date().setISO8601(jQuery(this).attr('datetime')).toTimeString()));
-      jQuery(this).removeClass('time');
+      var elem = jQuery(this);
+      var date = new Date();
+      date.setISO8601(elem.attr('datetime'));
+      elem.text(date.toTimeString());
+      elem.removeClass('time');
     });
     jQuery(this).find('time.datetime[datetime]').each(function(i) {
-      jQuery(this).text(jQuery.removeTimezone(new Date().setISO8601(jQuery(this).attr('datetime')).toString()));
-      jQuery(this).removeClass('datetime');
+      var elem = jQuery(this);
+      var date = new Date();
+      date.setISO8601(elem.attr('datetime'));
+      elem.text(date.toDateString() + ' ' + date.toTimeString());
+      elem.removeClass('datetime');
     });
     jQuery(this).find('time.localedate[datetime]').each(function(i) {
-      jQuery(this).text(jQuery.removeTimezone(new Date().setISO8601(jQuery(this).attr('datetime')).toLocaleDateString()));
-      jQuery(this).removeClass('localedate');
+      var elem = jQuery(this);
+      var date = new Date();
+      date.setISO8601(elem.attr('datetime'));
+      elem.text(date.toLocaleDateString());
+      elem.removeClass('localedate');
     });
     jQuery(this).find('time.localetime[datetime]').each(function(i) {
-      jQuery(this).text(jQuery.removeTimezone(new Date().setISO8601(jQuery(this).attr('datetime')).toLocaleTimeString()));
-      jQuery(this).removeClass('localetime');
+      var elem = jQuery(this);
+      var date = new Date();
+      date.setISO8601(elem.attr('datetime'));
+      elem.text(date.toLocaleTimeString());
+      elem.removeClass('localetime');
     });
     jQuery(this).find('time.localedatetime[datetime]').each(function(i) {
-      jQuery(this).text(jQuery.removeTimezone(new Date().setISO8601(jQuery(this).attr('datetime')).toLocaleString()));
-      jQuery(this).removeClass('localedatetime');
+      var elem = jQuery(this);
+      var date = new Date();
+      date.setISO8601(elem.attr('datetime'));
+      elem.text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
+      elem.removeClass('localedatetime');
     });
     return jQuery(this);
   }
