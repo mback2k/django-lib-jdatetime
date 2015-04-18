@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Marc Hörsken <info@marc-hoersken.de>
+ * Copyright (c) 2009-2015 Marc Hörsken <info@marc-hoersken.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,26 +55,47 @@ Date.prototype.toDateTimeString = function() {
 Date.prototype.toLocaleDateTimeString = function() {
   return this.toLocaleDateString() + ' ' + this.toLocaleTimeString();
 };
+function DateISO8601(string) {
+  return new Date().setISO8601(string);
+};
 (function($) {
     $.fn.extend({
+      formatDateString: function(string) {
+        return $(this).text(DateISO8601(string).toDateString());
+      },
+      formatTimeString: function(string) {
+        return $(this).text(DateISO8601(string).toTimeString());
+      },
+      formatDateTimeString: function(string) {
+        return $(this).text(DateISO8601(string).toDateTimeString());
+      },
+      formatLocaleDateString: function(string) {
+        return $(this).text(DateISO8601(string).toLocaleDateString());
+      },
+      formatLocaleTimeString: function(string) {
+        return $(this).text(DateISO8601(string).toLocaleTimeString());
+      },
+      formatLocaleDateTimeString: function(string) {
+        return $(this).text(DateISO8601(string).toLocaleDateTimeString());
+      },
       formatDatetime: function() {
         this.find('time.date[datetime]').each(function(i) {
-          $(this).text(new Date().setISO8601(this.getAttribute('datetime')).toDateString()).removeClass('date');
+          $(this).formatDateString(this.getAttribute('datetime'));
         });
         this.find('time.time[datetime]').each(function(i) {
-          $(this).text(new Date().setISO8601(this.getAttribute('datetime')).toTimeString()).removeClass('time');
+          $(this).formatTimeString(this.getAttribute('datetime'));
         });
         this.find('time.datetime[datetime]').each(function(i) {
-          $(this).text(new Date().setISO8601(this.getAttribute('datetime')).toDateTimeString()).removeClass('datetime');
+          $(this).formatDateTimeString(this.getAttribute('datetime'));
         });
         this.find('time.localedate[datetime]').each(function(i) {
-          $(this).text(new Date().setISO8601(this.getAttribute('datetime')).toLocaleDateString()).removeClass('localedate');
+          $(this).formatLocaleDateString(this.getAttribute('datetime'));
         });
         this.find('time.localetime[datetime]').each(function(i) {
-          $(this).text(new Date().setISO8601(this.getAttribute('datetime')).toLocaleTimeString()).removeClass('localetime');
+          $(this).formatLocaleTimeString(this.getAttribute('datetime'));
         });
         this.find('time.localedatetime[datetime]').each(function(i) {
-          $(this).text(new Date().setISO8601(this.getAttribute('datetime')).toLocaleDateTimeString()).removeClass('localedatetime');
+          $(this).formatLocaleDateTimeString(this.getAttribute('datetime'));
         });
         return this;
       }
